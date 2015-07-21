@@ -1,5 +1,5 @@
 #!/usr/bin/python
-
+# -*- coding: utf-8 -*-
 """
     starter code for the regression mini-project
     
@@ -58,7 +58,7 @@ from sklearn import linear_model
 reg = linear_model.LinearRegression()
 reg.fit(feature_train, target_train)
 #slope
-print "Slope: ", reg.coef_
+print "Slope with outlier: ", reg.coef_
 #intercept
 print "Intercept: ",reg.intercept_
 print "r-squared on test dataset: ", reg.score(feature_test, target_test)
@@ -85,6 +85,12 @@ try:
     plt.plot( feature_test, reg.predict(feature_test) )
 except NameError:
     pass
+
+# we’ll be drawing two regression lines, one fit on the test data (with outlier) 
+#and one fit on the training data (no outlier)
+reg.fit(feature_test, target_test)
+plt.plot(feature_train, reg.predict(feature_train), color="b") 
+print "Slope without outlier: ", reg.coef_
 plt.xlabel(features_list[1])
 plt.ylabel(features_list[0])
 plt.legend()
