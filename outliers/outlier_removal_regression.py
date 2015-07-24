@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 import random
 import numpy
@@ -25,14 +26,14 @@ ages_train, ages_test, net_worths_train, net_worths_test = train_test_split(ages
 
 ### fill in a regression here!  Name the regression object reg so that
 ### the plotting code below works, and you can see what your regression looks like
-
-
-
-
-
-
-
-
+from sklearn import linear_model
+reg = linear_model.LinearRegression()
+# net worth is the target 
+# and the feature being used to predict it is a person’s age (remember to train on the training data!)
+#TRAIN THE MODEL
+reg.fit(ages_train, net_worths_train)
+print "Slope with outlier: ", reg.coef_
+print "r-squared on training dataset: " ,reg.score(ages_test, net_worths_test)
 
 
 
@@ -49,14 +50,10 @@ cleaned_data = []
 try:
     predictions = reg.predict(ages_train)
     cleaned_data = outlierCleaner( predictions, ages_train, net_worths_train )
+    print "cleaned_data: ",cleaned_data
 except NameError:
     print "your regression object doesn't exist, or isn't name reg"
     print "can't make predictions to use in identifying outliers"
-
-
-
-
-
 
 
 ### only run this code if cleaned_data is returning data
